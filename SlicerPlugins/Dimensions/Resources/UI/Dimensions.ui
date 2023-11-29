@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SlopeIsolated</class>
+ <widget class="qMRMLWidget" name="SlopeIsolated">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>490</width>
+    <height>746</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="ctkCollapsibleButton" name="generalCollapsibleButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Settings</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="1" column="0">
+       <widget class="QLabel" name="inputSelectorLabel">
+        <property name="text">
+         <string>Input geometries:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="displayModeComboBoxLabel">
+        <property name="text">
+         <string>Display mode:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="ctkComboBox" name="displayModeComboBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Pick a view setting to display.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="ctkComboBox" name="inputSelector">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Choose from a folder node. The node should contain all relevant vertebrae geometries.</string>
+        </property>
+        <property name="defaultText">
+         <string>Select a Folder</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="ctkCollapsibleButton" name="rightVectorCollapsibleButton">
+     <property name="toolTip">
+      <string>Pick the vertebra-local right direction.</string>
+     </property>
+     <property name="text">
+      <string>Right direction</string>
+     </property>
+     <property name="collapsed">
+      <bool>true</bool>
+     </property>
+     <layout class="QFormLayout" name="formLayout_5">
+      <item row="1" column="0">
+       <widget class="QLabel" name="rightVectorRSliderLabel">
+        <property name="text">
+         <string>R (in mm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="qMRMLSliderWidget" name="rightVectorRSlider">
+        <property name="toolTip">
+         <string>Tweak the vertebra-local right direction's R component.</string>
+        </property>
+        <property name="decimals">
+         <number>0</number>
+        </property>
+        <property name="singleStep">
+         <double>10.000000000000000</double>
+        </property>
+        <property name="pageStep">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="rightVectorASliderLabel">
+        <property name="text">
+         <string>A (in mm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="qMRMLSliderWidget" name="rightVectorASlider">
+        <property name="toolTip">
+         <string>Tweak the vertebra-local right direction's R component.</string>
+        </property>
+        <property name="decimals">
+         <number>0</number>
+        </property>
+        <property name="singleStep">
+         <double>10.000000000000000</double>
+        </property>
+        <property name="pageStep">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="rightVectorSSliderLabel">
+        <property name="text">
+         <string>S (in mm)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="qMRMLSliderWidget" name="rightVectorSSlider">
+        <property name="toolTip">
+         <string>Tweak the vertebra-local right direction's R component.</string>
+        </property>
+        <property name="decimals">
+         <number>0</number>
+        </property>
+        <property name="singleStep">
+         <double>10.000000000000000</double>
+        </property>
+        <property name="pageStep">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="rightVectorInvertButton">
+        <property name="toolTip">
+         <string>Mirror the vertebra-local right vector at it's anchor point.</string>
+        </property>
+        <property name="text">
+         <string>Invert direction</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="ctkComboBox" name="rightVectorSelector">
+        <property name="toolTip">
+         <string>Pick a markup line, representing the the up vector.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="rightVectorSelectorLabel">
+        <property name="text">
+         <string>Right Vector</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="applyButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="toolTip">
+      <string>Run the algorithm.</string>
+     </property>
+     <property name="text">
+      <string>Apply</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="ctkCollapsibleButton" name="resultsCollapsibleButton">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Results</string>
+     </property>
+     <property name="collapsed">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item row="5" column="1">
+       <widget class="ctkPathLineEdit" name="resultPathLineEdit">
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>Path for a csv file, that will be filled with the inter-vertebral angles.</string>
+        </property>
+        <property name="filters">
+         <set>ctkPathLineEdit::Files|ctkPathLineEdit::NoDot|ctkPathLineEdit::NoSymLinks|ctkPathLineEdit::Writable</set>
+        </property>
+        <property name="nameFilters">
+         <stringlist>
+          <string>*.csv</string>
+         </stringlist>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QPushButton" name="saveResultButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="resultPathLineEditLabel">
+        <property name="text">
+         <string>Angle Output File:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="resultVertebraSelectorLabel">
+        <property name="text">
+         <string>Upmost Vertebra:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="2">
+       <widget class="ctkComboBox" name="resultVertebraSelector"/>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QTableWidget" name="resultTableWidget">
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustIgnored</enum>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>200</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ctkCollapsibleButton</class>
+   <extends>QWidget</extends>
+   <header>ctkCollapsibleButton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ctkComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ctkComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ctkPathLineEdit</class>
+   <extends>QWidget</extends>
+   <header>ctkPathLineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ctkSliderWidget</class>
+   <extends>QWidget</extends>
+   <header>ctkSliderWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>qMRMLSliderWidget</class>
+   <extends>ctkSliderWidget</extends>
+   <header>qMRMLSliderWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>qMRMLWidget</class>
+   <extends>QWidget</extends>
+   <header>qMRMLWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
