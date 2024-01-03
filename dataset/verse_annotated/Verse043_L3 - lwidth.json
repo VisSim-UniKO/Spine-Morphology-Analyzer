@@ -1,0 +1,49 @@
+{
+    "@schema": "https://raw.githubusercontent.com/slicer/slicer/master/Modules/Loadable/Markups/Resources/Schema/markups-schema-v1.0.3.json#",
+    "markups": [
+        {
+            "type": "Line",
+            "coordinateSystem": "LPS",
+            "coordinateUnits": "mm",
+            "locked": false,
+            "fixedNumberOfControlPoints": false,
+            "labelFormat": "%N-%d",
+            "lastUsedControlPointNumber": 2,
+            "controlPoints": [
+                {
+                    "id": "1",
+                    "label": "Verse043_L3 - width-1",
+                    "description": "",
+                    "associatedNodeID": "",
+                    "position": [35.737125396728519, 196.16098022460938, -344.0778503417969],
+                    "orientation": [-1.0, -0.0, -0.0, -0.0, -1.0, -0.0, 0.0, 0.0, 1.0],
+                    "selected": true,
+                    "locked": false,
+                    "visibility": true,
+                    "positionStatus": "defined"
+                },
+                {
+                    "id": "2",
+                    "label": "Verse043_L3 - width-2",
+                    "description": "",
+                    "associatedNodeID": "",
+                    "position": [-16.341358184814454, 191.3837127685547, -348.5445861816406],
+                    "orientation": [-1.0, -0.0, -0.0, -0.0, -1.0, -0.0, 0.0, 0.0, 1.0],
+                    "selected": true,
+                    "locked": false,
+                    "visibility": true,
+                    "positionStatus": "defined"
+                }
+            ],
+            "measurements": [
+                {
+                    "name": "length",
+                    "enabled": true,
+                    "value": 52.48754581386583,
+                    "units": "mm",
+                    "printFormat": "%-#4.4gmm"
+                }
+            ]
+        }
+    ]
+}
