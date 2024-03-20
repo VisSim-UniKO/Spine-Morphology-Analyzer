@@ -1,0 +1,6 @@
+[submodule "SpineLib"]
+	path = SpineLib
+	url = https://github.com/Caetox/SpineLib.git
+[submodule "SlicerPlugins/SymmetryPlane/SpineLib"]
+	path = SlicerPlugins/SymmetryPlane/SpineLib
+	url = https://github.com/Caetox/SpineLib.git
