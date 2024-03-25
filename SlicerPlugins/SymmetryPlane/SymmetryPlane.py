@@ -291,7 +291,8 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
                 
                 p0 = self.calcInitalPlane(points, centerOfMass)
                 mirroredVertNode = self.mirrorVertebraModelUponPlane(p0, vertebraModelNode, 100)
-                for i in range(5):
+                pFin = None
+                for i in range(2):
                 
                     mirroredModelPoints = SlicerTools.pointsFromModelNode_asNumPy(mirroredVertNode)
                     transformationMatrix = self.registerWithVanilaICP(mirroredModelPoints, points)
@@ -302,7 +303,37 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
                     middlePoints = self.getMiddlePoints(points, mirroredModelPoints)
                     p_i = self.fitPlaneLeastSquered(middlePoints, centerOfMass, i)
                     mirroredVertNode = self.mirrorVertebraModelUponPlane(p_i, vertebraModelNode, i)
-                           
+                    pFin = p_i
+                
+                print(f'plane final {pFin.GetName()}')
+                print(pFin.GetOrigin(), pFin.GetNormal())
+
+                contour = conv.cut_plane(polydata,pFin.GetOrigin(), pFin.GetNormal())
+                points = contour.GetPoints().GetData()
+                vtk_to_numpy(points)
+                
+                print(vtk_to_numpy(points).shape)
+
+                vtk_points = vtk.vtkPoints()
+                vtk_points.SetData(vtk.util.numpy_support.numpy_to_vtk(vtk_to_numpy(points)))
+
+                # Create the vtkPolyData object.
+                polydata = vtk.vtkPolyData()
+                polydata.SetPoints(vtk_points)
+
+                # Create the vtkSphereSource object.
+                sphere = vtk.vtkSphereSource()
+                sphere.SetRadius(1.0)
+
+                # Create the vtkGlyph3D object.
+                glyph = vtk.vtkGlyph3D()
+                glyph.SetInputData(polydata)
+                glyph.SetSourceConnection(sphere.GetOutputPort())
+
+
+                pointCloudModelNode = slicer.modules.models.logic().AddModel(glyph.GetOutputPort())
+
+
                 
 
 
