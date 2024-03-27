@@ -103,7 +103,7 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
         lineStartPos = np.asarray(centerOfMass)
         eigenvects = conv.pca_eigenvectors(points)
         i = 0
-        planeNormal = eigenvects[0]
+        planeNormal = eigenvects[1]
 
         for lineNodeName in lineNodeNames:
             e = eigenvects[i]
@@ -274,6 +274,8 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
 
         return transformationMatrix
 
+    def approximateVoramenCylinder(self):
+        pass
 
 
     # def run(self, directory, clAngle, tkAngle, llAngle, cAngle, ivdHeight):
@@ -287,6 +289,10 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
                 sawboneModelNodes.append(vertebraModelNode)
                 polydata = vertebraModelNode.GetPolyData()
                 centerOfMass = conv.calc_center_of_mass(polydata)
+
+                centerOfMassNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLMarkupsFiducialNode", "centerOfMass")
+                centerOfMassNode.AddFiducial(centerOfMass[0],centerOfMass[1],centerOfMass[2])
+
                 points = SlicerTools.pointsFromModelNode_asNumPy(vertebraModelNode)
                 
                 p0 = self.calcInitalPlane(points, centerOfMass)
@@ -310,7 +316,7 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
 
                 contour = conv.cut_plane(polydata,pFin.GetOrigin(), pFin.GetNormal())
                 points = contour.GetPoints().GetData()
-                vtk_to_numpy(points)
+                
                 
                 print(vtk_to_numpy(points).shape)
 
@@ -332,6 +338,20 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
 
 
                 pointCloudModelNode = slicer.modules.models.logic().AddModel(glyph.GetOutputPort())
+
+                lineNodeNames = ['e11', 'e21', 'e31']
+                lineNodes = []
+                lineStartPos = np.asarray(centerOfMass)
+                eigenvects = conv.pca_eigenvectors(vtk_to_numpy(points))
+                i = 0
+                
+                for lineNodeName in lineNodeNames:
+                    e = eigenvects[i]
+                    #we take e2 as normal topoints sagittal plane
+                    lineEndPos = lineStartPos + (e*100)
+                    lineNode = SlicerTools.markupsLineNode(lineNodeName, lineStartPos, lineEndPos)
+                    lineNodes.append(lineNode)
+                    i +=1 
 
 
                 
