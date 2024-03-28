@@ -101,7 +101,8 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
         lineNodeNames = ['e1', 'e2', 'e3']
         lineNodes = []
         lineStartPos = np.asarray(centerOfMass)
-        eigenvects = conv.pca_eigenvectors(points)
+        eigenvects, eigenvals = conv.pca_eigenvectors(points)
+        print(f'eigenvals:{eigenvals}')
         i = 0
         planeNormal = eigenvects[1]
 
@@ -243,7 +244,6 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
         return planeNode
 
 
-
     def evaluateRegistrationICP(self, originalPoints, mirroredPoints):
         source = o3d.geometry.PointCloud()
         source.points = o3d.utility.Vector3dVector(originalPoints)
@@ -311,14 +311,11 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
                     mirroredVertNode = self.mirrorVertebraModelUponPlane(p_i, vertebraModelNode, i)
                     pFin = p_i
                 
-                print(f'plane final {pFin.GetName()}')
-                print(pFin.GetOrigin(), pFin.GetNormal())
 
-                contour = conv.cut_plane(polydata,pFin.GetOrigin(), pFin.GetNormal())
+                contour = conv.cut_plane(polydata, pFin.GetOrigin(), pFin.GetNormal())
+
                 points = contour.GetPoints().GetData()
                 
-                
-                print(vtk_to_numpy(points).shape)
 
                 vtk_points = vtk.vtkPoints()
                 vtk_points.SetData(vtk.util.numpy_support.numpy_to_vtk(vtk_to_numpy(points)))
@@ -336,22 +333,44 @@ class SymmetryPlaneLogic(ScriptedLoadableModuleLogic):
                 glyph.SetInputData(polydata)
                 glyph.SetSourceConnection(sphere.GetOutputPort())
 
-
                 pointCloudModelNode = slicer.modules.models.logic().AddModel(glyph.GetOutputPort())
 
                 lineNodeNames = ['e11', 'e21', 'e31']
                 lineNodes = []
                 lineStartPos = np.asarray(centerOfMass)
-                eigenvects = conv.pca_eigenvectors(vtk_to_numpy(points))
+                eigenvects, eigenvals = conv.pca_eigenvectors(vtk_to_numpy(points))
+                # we need to sort the eigenvalues and get the corresponding eigenvectors
+
+                print(f'eigenvals: {eigenvals}')
                 i = 0
                 
                 for lineNodeName in lineNodeNames:
                     e = eigenvects[i]
+                    print(f'{lineNodeName}, {e}')
                     #we take e2 as normal topoints sagittal plane
                     lineEndPos = lineStartPos + (e*100)
                     lineNode = SlicerTools.markupsLineNode(lineNodeName, lineStartPos, lineEndPos)
                     lineNodes.append(lineNode)
                     i +=1 
+
+                npCounturPoints =vtk_to_numpy(points)
+                print(npCounturPoints.shape)
+                print(eigenvects[0][2])
+                print(npCounturPoints[:,2])
+                partIndx1 = np.where(npCounturPoints[:,2]<lineStartPos[2])
+                print(part_1)
+                partIndx2 = np.where(npCounturPoints[:,2]<lineStartPos[2])
+                print(part_1)
+                #index_pos = np.where((arr[:,:,0]==10) & (arr[:,:,1]==15) & (arr[:,:,2]==30))
+
+
+                # cylinder
+                cylinderSource = vtk.vtkCylinderSource()
+                cylinderSource.SetCenter(centerOfMass)
+                cylinderSource.SetRadius(5.0)
+                cylinderSource.SetHeight(7.0)
+                cylinderSource.SetResolution(100)
+                cylinderNode = slicer.modules.models.logic().AddModel(cylinderSource.GetOutputPort())
 
 
                 
